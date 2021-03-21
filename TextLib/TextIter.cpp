@@ -1,6 +1,6 @@
 #include "Text_Iter.h"
 #include <fstream>
-#include <string>
+#include <cstring>
 
 
 TextIter::TextIter(Text& _text, TextNode* _node, TStack<TextNode*> _st) : text(_text) {
@@ -15,7 +15,7 @@ TextIter::TextIter(const TextIter& t) : text(t.text)
     text = t.text;
 }
 
-bool TextIter::GoNext() //Переход дальше
+bool TextIter::GoNext() 
 {
     if (node->GetLevel() == 3)
     {

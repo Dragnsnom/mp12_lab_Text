@@ -1,6 +1,6 @@
 #include "Text_Iter.h"
 #include <fstream>
-#include <string>
+#include <cstring>
 
 Text::Text(char* s)
 {
@@ -37,8 +37,9 @@ TextIter Text::FindWord(char* c)
             TextIter result = iter;
             bool word = true;
             int i = 0;
+            int n = strlen(c);
 
-            while (iter.GoNext() && i < strlen(c))
+            while (iter.GoNext() && i < n)
             {
 
                 if (iter.Get()->GetC() != c[i])
@@ -66,8 +67,9 @@ TextIter Text::Find(char* s)
         TextIter result = iter;
         bool letter = true;
         bool next = true;
+        int n = strlen(s);
 
-        for (int i = 0; i < strlen(s); i++)
+        for (int i = 0; i < n; i++)
         {
             if (s[i] != result.Get()->GetC()) {
                 letter = false;
