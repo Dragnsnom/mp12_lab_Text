@@ -1,4 +1,6 @@
 #include "Text_Iter.h"
+#include <fstream>
+#include <string>
 
 
 TextIter::TextIter(Text& _text, TextNode* _node, TStack<TextNode*> _st) : text(_text) {

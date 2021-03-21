@@ -1,4 +1,6 @@
 #include "Text_Iter.h"
+#include <fstream>
+#include <string>
 
 Text::Text(char* s)
 {

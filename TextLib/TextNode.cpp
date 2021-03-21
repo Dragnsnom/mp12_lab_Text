@@ -1,4 +1,5 @@
 #include "TextNode.h"
+#include <cstring>
 
 std::ostream& operator<<(std::ostream& o, TextNode& t)
 {
@@ -37,7 +38,8 @@ TextNode::TextNode(char* s, int l) //Принимает слово
 
     if (l < 1 || l > 3)
         throw std::exception();
-    if (l == 1) {
+    if (l == 1)
+    {
         int sz = strlen(s);
         if (sz > 0) {
             int start = 0;
@@ -62,7 +64,8 @@ TextNode::TextNode(char* s, int l) //Принимает слово
             wcur->SetNext(nullptr);
         }
     }
-    if (l == 2) {
+    if (l == 2)
+    {
         next = nullptr;
         c = 0;
         level = l;
@@ -77,7 +80,8 @@ TextNode::TextNode(char* s, int l) //Принимает слово
             lcur->SetNext(nullptr);
         }
     }
-    if (l == 3) {
+    if (l == 3) 
+    {
         c = s[0];
         level = l;
         next = nullptr;
