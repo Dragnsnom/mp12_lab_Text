@@ -12,15 +12,16 @@ public:
     Text(char* s = 0);
     ~Text();
 
-    TextIter GetRoot(); //Создание рут
-    TextIter Find(char c); //Поиск буквы. Вернет итератор после найденой буквы
-    TextIter Find(char* c); //Поиск. Вернет итератор после найденой буквы
-    TextIter FindWord(char* c); //Поиск слова. Вернет итератор после найденого слова
+    TextIter GetRoot(); 
+    TextIter Find(char c); 
+    TextIter Find(char* c); 
+    TextIter FindWord(char* c); 
 
 
-    void Insert(char* c, TextIter i); //Вставить после i
-    void Delete(int count, TextIter i); //Удалить начиная с i, цказанное количество букв
-    char* Copy(int count, TextIter i); //Копирует указанное количество букв, начиная с i
+    void Insert(char* c, TextIter i);
+    void InsertData(char* c, TextIter i);
+    void Delete(int count, TextIter i); 
+    char* Copy(int count, TextIter i); 
 
     friend std::ostream& operator<<(std::ostream& o, Text& t);
 };
@@ -34,12 +35,12 @@ public:
     TextIter(Text& _text, TextNode* _node, TStack<TextNode*> _st);
     TextIter(const TextIter& t);
 
-    bool GoNext(); //Перейти дальше
-    bool GoNextChar(); //Перейти к следующей букве
+    bool GoNext(); 
+    bool GoNextChar();
     bool IsEnd(); //Првоерка конца
 
     void ResetToString();
     void ResetToWord();
 
-    TextNode* Get(); //Получить весь текст
+    TextNode* Get();    
 };

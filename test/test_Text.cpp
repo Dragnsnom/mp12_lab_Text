@@ -10,6 +10,20 @@ TEST(Text, can_create_empty_text)
   ASSERT_NO_THROW(Text A());
 }
 
+TEST(Text, get_the_first_character_of_the_next_word) {
+    char* const temp = "Hello World";
+    Text A(temp);
+    TextIter iter = A.GetRoot();
+
+    while (iter.Get()->GetC() != ' ')
+    {
+        iter.GoNextChar();
+    }
+
+    iter.GoNextChar();
+    ASSERT_EQ(iter.Get()->GetC(), 'W');
+}
+
 TEST(Text, can_create_non_empty_text)
 {
   char* const temp = "Hello World";
