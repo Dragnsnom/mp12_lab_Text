@@ -3,7 +3,8 @@
 #include <cstring>
 
 
-TextIter::TextIter(Text& _text, TextNode* _node, TStack<TextNode*> _st) : text(_text) {
+TextIter::TextIter(Text& _text, TextNode* _node, TStack<TextNode*> _st) : text(_text) 
+{
     node = _node;
     st = _st;
 }

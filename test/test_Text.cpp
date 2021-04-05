@@ -10,6 +10,12 @@ TEST(Text, can_create_empty_text)
   ASSERT_NO_THROW(Text A());
 }
 
+TEST(Text, can_create_non_empty_text)
+{
+    char* const temp = "Hello World";
+    ASSERT_NO_THROW(Text A(temp));
+}
+
 TEST(Text, get_the_first_character_of_the_next_word) {
     char* const temp = "Hello World";
     Text A(temp);
@@ -24,11 +30,6 @@ TEST(Text, get_the_first_character_of_the_next_word) {
     ASSERT_EQ(iter.Get()->GetC(), 'W');
 }
 
-TEST(Text, can_create_non_empty_text)
-{
-  char* const temp = "Hello World";
-  ASSERT_NO_THROW(Text A(temp));
-}
 
 TEST(TextIter, get_the_first_character) 
 {
@@ -76,6 +77,26 @@ TEST(Text, can_insert_a_letter)
   ASSERT_NO_THROW(A.Insert("Q", iter));
 }
 
+TEST(Text, can_insert_a_word_in_empty_space)
+{
+    char* const temp = "Hello World";   
+    Text A(temp);
+    TextIter iter = A.GetRoot();
+    TextIter B = A.Find("o");
+
+    ASSERT_NO_THROW(A.InsertData("this big and beautifull", B));
+}
+
+TEST(Text, can_insert_a_word_in_word)
+{
+    char* const temp = "Hello World";
+    Text A(temp);
+    TextIter iter = A.GetRoot();
+    TextIter B = A.Find("l");
+
+    ASSERT_NO_THROW(A.InsertDataInTheWord("this big and beautifull", B));
+}
+
 TEST(Text, can_find_the_word) 
 {
   char* const temp = "Hello World";
@@ -97,7 +118,7 @@ TEST(Text, text_find_word_3)
   ASSERT_EQ(iter.IsEnd(), true);
 }
 
-TEST(Text, text_delete_0)
+TEST(Text, text_delete)
 {
   char* const temp = "Hello World";
   Text A(temp);

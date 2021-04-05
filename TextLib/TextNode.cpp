@@ -46,7 +46,8 @@ TextNode::TextNode(char* s, int l) //Принимает слово
             TextNode* wcur = new TextNode(2);
             this->SetDown(wcur);
             for (int i = 0; i < sz; i++) {
-                if (s[i] == ' ' || i == sz - 1) {
+                if (s[i] == ' ' || i == sz - 1) 
+                {
                     if (start != 0) {
                         wcur->SetNext(new TextNode(2));
                         wcur = wcur->GetNext();
@@ -177,7 +178,7 @@ void* TextNode::operator new(size_t size)
     if ((firstFree == 0) && (textNodes == 0))
         InitMem();
 
-    if ((firstFree == 0) && (textNodes != 0)) //Вызвать довыделение памяти
+    if ((firstFree == 0) && (textNodes != 0))
         InitMem();
 
     TextNode* node = firstFree;

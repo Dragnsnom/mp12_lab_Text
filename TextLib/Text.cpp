@@ -92,97 +92,60 @@ void Text::Insert(char* c, TextIter iter)
     iter.Get()->SetNext(node);
 }
 
-void Text::InsertData(char* c, TextIter i)
+void Text::InsertData(char* c, TextIter iter)
 {
-    int n = strlen(c);
-    if (n == 1)
-        Insert(c, i);
-else 
+
+            iter.GoNextChar();
+            TextNode* node = new TextNode(c, 2);
+            iter.Get()->SetNext(node);
+
+            int k = strlen(c) + 1;
+            for (int i = 0; i < k; i++)
+                iter.GoNextChar();
+
+            node = new TextNode(" ", 2);
+            iter.Get()->SetNext(node);
+         
+}
+
+void Text::InsertDataInTheWord(char* c, TextIter iter)
 {
-    int level = 2;
-    int space = 0;
 
-    for (int q = 0; q < n; q++)
+    TextNode* next = iter.Get()->GetNext();
+    TextNode* tmp = iter.Get()->GetNext();
+    int w = 0;
+
+    while (next->GetC() !=  ' ' && next->GetC() != '.' && next->GetC() != '\n')
     {
-        if (c[q] == ' ') 
-        {
-            level = 1;
-            break;
-        }
+        w++;
+        next = next->GetNext();
     }
 
-    TextIter osn = i;
-    TextNode* next = i.Get()->GetNext();
+    char* word = new char[w + 2];
+    word[0] = ' ';
+    word[w + 2] = NULL;
 
-    if (next->GetC() == ' ') 
+    for (int i = 1; i < w + 2; i++)
     {
-        i.GoNextChar(); 
-        char* t = new char[n + 1];
-        t[n ++] = '\0';
-
-        for (int j = 0; j < n; j++)
-        {
-            t[j] = c[j];
-        }
-        t[n] = ' ';
-
-        TextNode* node = new TextNode(t, level);
-
-        next->SetNext(node);
-        i.Get()->SetNext(node);
+        word[i] = tmp->GetC();
+        tmp = tmp->GetNext();
     }
-    else 
-    {
-        int cc = 0;
-        char symbol = ' ';
+    
+    TextNode* node = new TextNode(" ", 2);
+    iter.Get()->SetNext(node);
 
-        TextNode* cc_node = i.Get()->GetNext();
+    iter.GoNextChar();
+    node = new TextNode(c, 2);
+    iter.Get()->SetNext(node);
 
+    int k = strlen(c) + 1;
+    for (int i = 0; i < k; i++)
+        iter.GoNextChar();
 
-        while ((cc_node->GetC() != '.') && (cc_node->GetC() != ' ') && (cc_node->GetC() != '\n'))
-        {
-            cc++;
-            cc_node = cc_node->GetNext();
-        }
-
-        if (cc_node->GetC() == '.')
-            symbol = '.';
-
-        if (cc_node->GetC() == '\n')
-            symbol = '\n';
-
-      
-        char* temp = new char[strlen(c) + cc + 3];
-        temp[n + cc + 3] = '\0';
-        temp[0] = ' ';
-
-        int j = 1;
-        int k = 0;
-
-        for (j; j < n + 1; j++, k++)
-        {
-            temp[j] = c[k];
-        }
-        temp[j] = ' ';
-
-        TextNode* temp_node = i.Get()->GetNext();
-        for (j = j + 1; j < n + cc + 2; j++)
-        {
-            temp[j] = temp_node->GetC();
-            temp_node = temp_node->GetNext();
-        }
-
-        temp[n + cc + 2] = symbol;
-
-        osn.GoNext();
-        this->Delete(cc, osn);
-
-        TextNode* node = new TextNode(temp, level);
-        next->SetNext(node);
-        i.Get()->SetNext(node);
-    }
+    node = new TextNode(word, 2);
+    iter.Get()->SetNext(node);
 }
-}
+
 
 void Text::Delete(int count, TextIter iter)
 {
@@ -194,9 +157,7 @@ void Text::Delete(int count, TextIter iter)
     int level = iter.Get()->GetLevel();
 
     if (level < 3)
-    {
         iter.GoNextChar();
-    }
 
     if (level >= 1 && level <= 3)
     {
@@ -215,9 +176,7 @@ void Text::Delete(int count, TextIter iter)
             stack[level - 1].Push(it.Get());
 
             if (level == 3)
-            {
                 del++;
-            }
         }
     }
 
