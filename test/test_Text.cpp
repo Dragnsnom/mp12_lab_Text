@@ -89,12 +89,12 @@ TEST(Text, can_insert_a_word_in_empty_space)
 
 TEST(Text, can_insert_a_word_in_word)
 {
-    char* const temp = "Hello World";
+    char* const temp = "Hello World\n   ";
     Text A(temp);
     TextIter iter = A.GetRoot();
     TextIter B = A.Find("l");
 
-    ASSERT_NO_THROW(A.InsertDataInTheWord("this big and beautifull", B));
+    ASSERT_NO_THROW(A.InsertLine("this big and beautifull", B));
 }
 
 TEST(Text, can_find_the_word) 

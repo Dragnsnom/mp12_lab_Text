@@ -20,7 +20,7 @@ public:
 
     void Insert(char* c, TextIter i);
     void InsertData(char* c, TextIter i);
-    void InsertDataInTheWord(char* c, TextIter i);
+    void InsertLine(char* c, TextIter iter);
     void Delete(int count, TextIter i); 
     char* Copy(int count, TextIter i); 
 

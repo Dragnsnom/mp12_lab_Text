@@ -10,11 +10,11 @@
 int main()
 {
 
-	char* temp = "Qwerty. \nAsd fgh zxc.";
+	char* temp = "Qwerty. \n Asd fgh zxc.\n";
 	Text A(temp);
-	TextIter B = A.Find("s");
+	TextIter B = A.Find("y");
 
-	A.InsertDataInTheWord("jui", B);
+	A.InsertLine("lol", B);
 
 	cout << endl << A;
 	return 0;

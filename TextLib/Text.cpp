@@ -95,54 +95,73 @@ void Text::Insert(char* c, TextIter iter)
 void Text::InsertData(char* c, TextIter iter)
 {
 
-            iter.GoNextChar();
-            TextNode* node = new TextNode(c, 2);
-            iter.Get()->SetNext(node);
+    if (iter.Get()->GetNext()->GetC() == ' ' && iter.Get()->GetNext()->GetC() == '.' && iter.Get()->GetNext()->GetC() == '\n')
+    {
+        iter.GoNext();
+        TextNode* node = new TextNode(c, 2);
+        iter.Get()->SetNext(node);
 
-            int k = strlen(c) + 1;
-            for (int i = 0; i < k; i++)
-                iter.GoNextChar();
+        int k = strlen(c) + 1;
+        for (int i = 0; i < k; i++)
+            iter.GoNext();
 
-            node = new TextNode(" ", 2);
-            iter.Get()->SetNext(node);
+        node = new TextNode(" ", 2);
+        iter.Get()->SetNext(node);
+    }
+
+    else
+    {
+        TextNode* next = iter.Get()->GetNext();
+        TextNode* tmp = iter.Get()->GetNext();
+        int w = 0;
+
+        while (next->GetC() != ' ' && next->GetC() != '.' && next->GetC() != '\n')
+        {
+            w++;
+            next = next->GetNext();
+        }
+
+        char* word = new char[w + 2];
+        word[0] = ' ';
+        word[w + 2] = NULL;
+
+        for (int i = 1; i < w + 2; i++)
+        {
+            word[i] = tmp->GetC();
+            tmp = tmp->GetNext();
+        }
+
+        TextNode* node = new TextNode(" ", 2);
+        iter.Get()->SetNext(node);
+
+        iter.GoNext();
+        iter.GoNext();
+        node = new TextNode(c, 2);
+        iter.Get()->SetNext(node);
+
+        int k = strlen(c) + 1;
+        for (int i = 0; i < k; i++)
+            iter.GoNext();
+
+        node = new TextNode(word, 2);
+        iter.Get()->SetNext(node);
+    }
+           
          
 }
 
-void Text::InsertDataInTheWord(char* c, TextIter iter)
+void Text::InsertLine(char* c, TextIter iter)
 {
-
-    TextNode* next = iter.Get()->GetNext();
-    TextNode* tmp = iter.Get()->GetNext();
-    int w = 0;
-
-    while (next->GetC() !=  ' ' && next->GetC() != '.' && next->GetC() != '\n')
+    while (iter.Get()->GetC() != '\n')
     {
-        w++;
-        next = next->GetNext();
+        iter.GoNext();
     }
 
-    char* word = new char[w + 2];
-    word[0] = ' ';
-    word[w + 2] = NULL;
-
-    for (int i = 1; i < w + 2; i++)
-    {
-        word[i] = tmp->GetC();
-        tmp = tmp->GetNext();
-    }
-    
-    TextNode* node = new TextNode(" ", 2);
+    TextNode* node = new TextNode(c, 1);
     iter.Get()->SetNext(node);
 
-    iter.GoNextChar();
-    node = new TextNode(c, 2);
-    iter.Get()->SetNext(node);
-
-    int k = strlen(c) + 1;
-    for (int i = 0; i < k; i++)
-        iter.GoNextChar();
-
-    node = new TextNode(word, 2);
+    iter.GoNext();
+    node = new TextNode("\n", 2);
     iter.Get()->SetNext(node);
 }
 
